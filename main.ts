@@ -1,12 +1,15 @@
+input.onGesture(Gesture.EightG, function () {
+    punchDetected = 1
+})
 bluetooth.onBluetoothConnected(function () {
-    bluetooth.setTransmitPower(7)
     bluetooth.startUartService()
+    bluetooth.setTransmitPower(7)
     images.createImage(`
-        # # # . .
-        # . . # .
-        # # # . .
-        # . . # .
-        # # # . .
+        # . # # .
+        . # # . #
+        . . # # .
+        . # # . #
+        # . # # .
         `).showImage(0)
 })
 bluetooth.onBluetoothDisconnected(function () {
@@ -15,10 +18,26 @@ bluetooth.onBluetoothDisconnected(function () {
 input.onButtonPressed(Button.A, function () {
     punchCount = 0
 })
-input.onGesture(Gesture.SixG, function () {
-    punchDetected = 1
+bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function () {
+    images.createImage(`
+        # # # . .
+        . # . . .
+        . # # . #
+        . . . # .
+        . . # . #
+        `).showImage(0)
+    punchCount = 0
+    punchDetected = 0
+    bluetooth.uartWriteLine("" + control.eventTimestamp() + "," + punchCount + ",")
 })
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
+    images.createImage(`
+        # # # . .
+        . # . . .
+        . # # . #
+        . . . # .
+        . . # . #
+        `).showImage(0)
     bluetooth.uartWriteLine("" + control.eventTimestamp() + "," + punchCount + ",")
 })
 input.onButtonPressed(Button.B, function () {
@@ -37,10 +56,10 @@ punchDetected = 0
 basic.forever(function () {
     if (punchDetected) {
         punchCount += 1
-        music.playTone(262, music.beat(BeatFraction.Half))
-        images.iconImage(IconNames.No).showImage(0)
-        basic.pause(150)
         punchDetected = 0
+        music.playTone(262, music.beat(BeatFraction.Quarter))
+        images.iconImage(IconNames.No).showImage(0)
+        basic.pause(100)
     } else {
         images.createImage(`
             . . . . .
