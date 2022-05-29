@@ -1,4 +1,5 @@
 bluetooth.onBluetoothConnected(function () {
+    bluetooth.setTransmitPower(7)
     bluetooth.startUartService()
     images.createImage(`
         # # # . .
@@ -8,15 +9,17 @@ bluetooth.onBluetoothConnected(function () {
         # # # . .
         `).showImage(0)
 })
+bluetooth.onBluetoothDisconnected(function () {
+    images.iconImage(IconNames.Skull).showImage(0)
+})
 input.onButtonPressed(Button.A, function () {
     punchCount = 0
 })
+input.onGesture(Gesture.SixG, function () {
+    punchDetected = 1
+})
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
-    bluetooth.uartWriteNumber(control.eventTimestamp())
-    bluetooth.uartWriteString(",")
-    bluetooth.uartWriteNumber(punchCount)
-    bluetooth.uartWriteString(",")
-    bluetooth.uartWriteLine("")
+    bluetooth.uartWriteLine("" + control.eventTimestamp() + "," + punchCount + ",")
 })
 input.onButtonPressed(Button.B, function () {
     images.createImage(`
@@ -27,9 +30,6 @@ input.onButtonPressed(Button.B, function () {
         . . . . .
         `).showImage(0)
     basic.showString("" + (punchCount))
-})
-input.onGesture(Gesture.TiltRight, function () {
-    punchDetected = 1
 })
 let punchCount = 0
 let punchDetected = 0
