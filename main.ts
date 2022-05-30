@@ -41,7 +41,5 @@ basic.forever(function () {
         }
         images.iconImage(IconNames.No).showImage(0)
         images.iconImage(IconNames.Square).showImage(0)
-    } else {
-        images.iconImage(IconNames.Square).showImage(0)
     }
 })
