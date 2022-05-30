@@ -1,6 +1,3 @@
-input.onGesture(Gesture.EightG, function () {
-    punchDetected = 1
-})
 bluetooth.onBluetoothConnected(function () {
     music.playTone(554, music.beat(BeatFraction.Quarter))
     BTconnected = 1
@@ -19,6 +16,9 @@ bluetooth.onBluetoothDisconnected(function () {
 })
 input.onButtonPressed(Button.A, function () {
     punchCount = 0
+})
+input.onGesture(Gesture.SixG, function () {
+    punchDetected = 1
 })
 input.onButtonPressed(Button.B, function () {
     basic.showString("" + punchCount)
