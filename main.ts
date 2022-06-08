@@ -1,3 +1,6 @@
+input.onGesture(Gesture.EightG, function () {
+    punchDetected = 1
+})
 bluetooth.onBluetoothConnected(function () {
     music.playTone(554, music.beat(BeatFraction.Quarter))
     BTconnected = 1
@@ -15,10 +18,9 @@ bluetooth.onBluetoothDisconnected(function () {
     images.iconImage(IconNames.Skull).showImage(0)
 })
 input.onButtonPressed(Button.A, function () {
+    basic.showString("" + punchCount)
+    bluetooth.uartWriteLine("" + convertToText(control.eventTimestamp()) + "," + convertToText(punchCount) + ",")
     punchCount = 0
-})
-input.onGesture(Gesture.SixG, function () {
-    punchDetected = 1
 })
 input.onButtonPressed(Button.B, function () {
     basic.showString("" + punchCount)
@@ -29,17 +31,29 @@ let punchDetected = 0
 punchDetected = 0
 punchCount = 0
 music.playTone(392, music.beat(BeatFraction.Quarter))
-images.iconImage(IconNames.Heart).showImage(0)
 bluetooth.startUartService()
 bluetooth.setTransmitPower(7)
+led.setBrightness(64)
 basic.forever(function () {
     if (punchDetected > 0) {
         punchCount += 1
         punchDetected = 0
         if (BTconnected == 1) {
-            bluetooth.uartWriteLine("" + convertToText(control.eventTimestamp()) + "," + convertToText(punchCount) + "")
+            bluetooth.uartWriteLine("" + convertToText(control.eventTimestamp()) + "," + convertToText(punchCount) + ",")
         }
-        images.iconImage(IconNames.No).showImage(0)
-        images.iconImage(IconNames.Square).showImage(0)
+        images.createImage(`
+            . . . . .
+            . . . . .
+            . . # . .
+            . . . . .
+            . . . . .
+            `).showImage(0)
     }
+    images.createImage(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `).showImage(0)
 })
