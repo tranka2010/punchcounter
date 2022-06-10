@@ -20,10 +20,10 @@ To edit this repository in MakeCode.
 
 ## Features
 
-* This counter will keep a running tally of punches that cross a certain number of gs in the accelerometer (set to 6g on 1.0.1, but this is a tunable parameter.)  
-* Button A clears the counter
-* Button B displays the current punch count. 
-* Registered punches are shown briefly as an X, otherwise screen shows a square [].
+* This counter will keep a running tally of punches that cross a certain number of gs in the accelerometer (set to 8g on 1.0.2, but this is a tunable parameter.)  
+* Button A clears the counter to 0 after sending the current punch count over BLE
+* Button B displays the current punch count.
+* Device will only beep when first booted, upon BLE connection and then again at disconnection. The LEDs are disabled during normal operation.
 
 * If the micro:bit is connected to a bluetooth device over BLE using the UART Service, the micro:bit will send one line of ASCII characters over the UART in csv format for every punch tallied.  This is done automatically and the micro:bit does not need to be queried to retrieve this data:
     * Example of line received after a punch:
