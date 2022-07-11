@@ -31,7 +31,7 @@ To edit this repository in MakeCode.
       * Hex: 0x37,0x35,0x38,0x31,0x31,0x36,0x32,0x39,0x2C,0x38,0x2C,0x0D,0x0A
       * Numerical: 75811629,8,CR/LF
       
-Note: The expectation for this project is that people can expand it by building their own external application for processing the data received from the micro:bit.  For example, a user could build a tool that counts punches, plots them over time, and archives the data as part of boxing training sessions.  The author is currently working on building such a tool.
+Note: The expectation for this project is that people can expand it by building their own external application for processing the data received from the micro:bit.  For example, a user could build a tool that counts punches, plots them over time, and archives the data as part of boxing training sessions.  The author is currently working on building such a tool.  Latest version of this tool is under the folder punch_counter_dual_glove.  This requires some Linux know-how and installing some supporting python libraries.  
     
 ## Blocks preview
 
